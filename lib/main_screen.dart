@@ -4,6 +4,8 @@ import 'package:phenoxx/dashboard_screen.dart';
 import 'package:phenoxx/earn_screen.dart';
 import 'package:phenoxx/learn_screen.dart';
 import 'package:phenoxx/profile_screen.dart';
+import 'package:phenoxx/chats_screen.dart';
+import 'package:phenoxx/services/chat_service.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -13,15 +15,17 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin {
-  int _selectedIndex = 0; // Current page index (0-4)
-  int _navBarIndex = 0;   // Current nav bar selection (0-4)
+  int _selectedIndex = 0; // Current page index (0-5)
+  int _navBarIndex = 0;   // Current nav bar selection (0-5)
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
+  final ChatService _chatService = ChatService();
 
   final List<Widget> _pages = const [
     DashboardScreen(),
     LearnScreen(),
     EarnScreen(),
+    ChatsScreen(),
     CommunityScreen(),
     ProfileScreen(),
   ];
@@ -76,28 +80,41 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         onDestinationSelected: _onItemTapped,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         indicatorColor: Colors.blue.withOpacity(0.1),
-        destinations: const [
-          NavigationDestination(
+        destinations: [
+          const NavigationDestination(
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home, color: Colors.blue),
             label: 'Home',
           ),
-          NavigationDestination(
+          const NavigationDestination(
             icon: Icon(Icons.school_outlined),
             selectedIcon: Icon(Icons.school, color: Colors.blue),
             label: 'Learn',
           ),
-          NavigationDestination(
+          const NavigationDestination(
             icon: Icon(Icons.shopping_bag_outlined),
             selectedIcon: Icon(Icons.shopping_bag, color: Colors.blue),
             label: 'Earn',
           ),
           NavigationDestination(
+            icon: Badge(
+              label: Text(_chatService.getTotalUnreadCount().toString()),
+              isLabelVisible: _chatService.getTotalUnreadCount() > 0,
+              child: const Icon(Icons.chat_bubble_outline),
+            ),
+            selectedIcon: Badge(
+              label: Text(_chatService.getTotalUnreadCount().toString()),
+              isLabelVisible: _chatService.getTotalUnreadCount() > 0,
+              child: const Icon(Icons.chat_bubble, color: Colors.blue),
+            ),
+            label: 'Chats',
+          ),
+          const NavigationDestination(
             icon: Icon(Icons.groups_outlined),
             selectedIcon: Icon(Icons.groups, color: Colors.blue),
             label: 'Community',
           ),
-          NavigationDestination(
+          const NavigationDestination(
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person, color: Colors.blue),
             label: 'Profile',
