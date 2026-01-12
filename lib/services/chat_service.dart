@@ -5,8 +5,7 @@ class ChatService {
   // Singleton pattern
   static final ChatService _instance = ChatService._internal();
   factory ChatService() => _instance;
-  ChatService._internal();
-
+  
   // Mock data
   final List<Chat> _chats = [];
   final Map<String, List<Message>> _messages = {};
@@ -14,7 +13,7 @@ class ChatService {
   // Current user ID (mock)
   final String currentUserId = 'user_1';
 
-  ChatService() {
+  ChatService._internal() {
     _initializeMockData();
   }
 

@@ -289,6 +289,7 @@ class CommunityScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'community_fab',
         onPressed: () {},
         backgroundColor: Colors.blue,
         child: const Icon(Icons.add, color: Colors.white),

@@ -115,6 +115,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
               },
             ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'chats_fab',
         onPressed: () {
           // TODO: Implement new chat
         },

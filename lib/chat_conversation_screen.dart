@@ -370,7 +370,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen> {
                     message.content,
                     style: GoogleFonts.poppins(
                       fontSize: 14,
-                      color: isMe ? Colors.white : textColor,
+                      color: isMe ? Colors.white : (isDark ? Colors.white : Colors.black87),
                       height: 1.4,
                     ),
                   ),
