@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'security_checkup_screen.dart';
+import 'change_password_screen.dart';
+import 'data_usage_screen.dart';
+import 'privacy_policy_screen.dart';
 
 class PrivacySecurityScreen extends StatefulWidget {
   const PrivacySecurityScreen({super.key});
@@ -86,7 +90,14 @@ class _PrivacySecurityScreenState extends State<PrivacySecurityScreen> {
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SecurityCheckupScreen(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -167,7 +178,14 @@ class _PrivacySecurityScreenState extends State<PrivacySecurityScreen> {
                     subtitle: 'Last changed 26 days ago',
                     trailing: Icon(Icons.chevron_right, color: Colors.grey[500]),
                     isDark: isDark,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ChangePasswordScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -197,7 +215,14 @@ class _PrivacySecurityScreenState extends State<PrivacySecurityScreen> {
                     iconColor: Colors.grey,
                     title: 'Data Usage & Permissions',
                     isDark: isDark,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DataUsageScreen(),
+                        ),
+                      );
+                    },
                   ),
                   Divider(height: 1, color: isDark ? Colors.grey[800] : Colors.grey[200]),
                   _PrivacyItem(
@@ -205,7 +230,14 @@ class _PrivacySecurityScreenState extends State<PrivacySecurityScreen> {
                     iconColor: Colors.grey,
                     title: 'Privacy Policy',
                     isDark: isDark,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PrivacyPolicyScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
