@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phenoxx/community_screen.dart';
 import 'package:phenoxx/dashboard_screen.dart';
 import 'package:phenoxx/earn_screen.dart';
+import 'package:phenoxx/learn_screen.dart';
 import 'package:phenoxx/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
 
   final List<Widget> _pages = const [
     DashboardScreen(),
-    DashboardScreen(), // Learn (placeholder - using Dashboard for now)
+    LearnScreen(),
     EarnScreen(),
     CommunityScreen(),
     ProfileScreen(),

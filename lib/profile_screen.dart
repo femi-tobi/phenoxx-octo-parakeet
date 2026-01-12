@@ -398,6 +398,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       title: 'Privacy & Security',
                       trailing: const Icon(Icons.chevron_right, color: Colors.grey),
                       isDark: isDark,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const PrivacySecurityScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -554,6 +561,7 @@ class _SettingsItem extends StatelessWidget {
   final Color? titleColor;
   final Widget trailing;
   final bool isDark;
+  final VoidCallback? onTap;
 
   const _SettingsItem({
     required this.icon,
@@ -562,11 +570,13 @@ class _SettingsItem extends StatelessWidget {
     this.titleColor,
     required this.trailing,
     required this.isDark,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       leading: Container(
         padding: const EdgeInsets.all(8),
