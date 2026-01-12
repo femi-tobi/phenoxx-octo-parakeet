@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'models/chat_model.dart';
 import 'services/chat_service.dart';
 import 'chat_conversation_screen.dart';
+import 'contact_search_screen.dart';
 
 class ChatsScreen extends StatefulWidget {
   const ChatsScreen({super.key});
@@ -65,13 +66,16 @@ class _ChatsScreenState extends State<ChatsScreen> {
           IconButton(
             icon: Icon(Icons.search, color: textColor),
             onPressed: () {
-              // TODO: Implement search
+              showSearch(
+                context: context,
+                delegate: _ChatSearchDelegate(_chats),
+              );
             },
           ),
           IconButton(
             icon: Icon(Icons.more_vert, color: textColor),
             onPressed: () {
-              // TODO: Implement menu
+              _showMenuOptions(context);
             },
           ),
         ],
@@ -117,7 +121,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
       floatingActionButton: FloatingActionButton(
         heroTag: 'chats_fab',
         onPressed: () {
-          // TODO: Implement new chat
+          _showNewChatDialog(context);
         },
         backgroundColor: Colors.blue,
         child: const Icon(Icons.edit, color: Colors.white),
@@ -270,5 +274,302 @@ class _ChatsScreenState extends State<ChatsScreen> {
       Colors.pink,
     ];
     return colors[chatId.hashCode % colors.length];
+  }
+
+  void _showMenuOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          decoration: BoxDecoration(
+            color: isDark ? const Color(0xFF1A2332) : Colors.white,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.group_add, color: Colors.blue),
+                title: Text(
+                  'New Group',
+                  style: GoogleFonts.poppins(fontSize: 15),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'New group feature coming soon!',
+                        style: GoogleFonts.poppins(),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.settings, color: Colors.grey),
+                title: Text(
+                  'Settings',
+                  style: GoogleFonts.poppins(fontSize: 15),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Chat settings coming soon!',
+                        style: GoogleFonts.poppins(),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.archive_outlined, color: Colors.grey),
+                title: Text(
+                  'Archived Chats',
+                  style: GoogleFonts.poppins(fontSize: 15),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'No archived chats',
+                        style: GoogleFonts.poppins(),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showNewChatDialog(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          'Start New Chat',
+          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.blue.withOpacity(0.1),
+                child: const Icon(Icons.person, color: Colors.blue),
+              ),
+              title: Text(
+                'New Contact Chat',
+                style: GoogleFonts.poppins(fontSize: 15),
+              ),
+              subtitle: Text(
+                'Start a 1-on-1 conversation',
+                style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ContactSearchScreen(),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 8),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.green.withOpacity(0.1),
+                child: const Icon(Icons.group_add, color: Colors.green),
+              ),
+              title: Text(
+                'New Group Chat',
+                style: GoogleFonts.poppins(fontSize: 15),
+              ),
+              subtitle: Text(
+                'Create a group conversation',
+                style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Group creation coming soon!',
+                      style: GoogleFonts.poppins(),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              'Cancel',
+              style: GoogleFonts.poppins(color: Colors.grey),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Search delegate for chats
+class _ChatSearchDelegate extends SearchDelegate<Chat?> {
+  final List<Chat> chats;
+
+  _ChatSearchDelegate(this.chats);
+
+  @override
+  String get searchFieldLabel => 'Search chats...';
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Theme.of(context).copyWith(
+      appBarTheme: AppBarTheme(
+        backgroundColor: isDark ? const Color(0xFF1A2332) : Colors.white,
+        elevation: 0,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: InputBorder.none,
+        hintStyle: GoogleFonts.poppins(color: Colors.grey),
+      ),
+    );
+  }
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return _buildSearchResults(context);
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return _buildSearchResults(context);
+  }
+
+  Widget _buildSearchResults(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final results = chats.where((chat) {
+      final nameLower = chat.displayName.toLowerCase();
+      final queryLower = query.toLowerCase();
+      return nameLower.contains(queryLower);
+    }).toList();
+
+    if (query.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.search, size: 60, color: Colors.grey[400]),
+            const SizedBox(height: 16),
+            Text(
+              'Search for chats',
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                color: Colors.grey[500],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (results.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.search_off, size: 60, color: Colors.grey[400]),
+            const SizedBox(height: 16),
+            Text(
+              'No chats found',
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                color: Colors.grey[500],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return ListView.builder(
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        final chat = results[index];
+        return ListTile(
+          leading: CircleAvatar(
+            backgroundColor: chat.isGroup ? Colors.blue : Colors.purple,
+            child: chat.isGroup
+                ? const Icon(Icons.groups, color: Colors.white)
+                : Text(
+                    chat.displayName[0].toUpperCase(),
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+          ),
+          title: Text(
+            chat.displayName,
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+          ),
+          subtitle: chat.lastMessage != null
+              ? Text(
+                  chat.lastMessage!.content,
+                  style: GoogleFonts.poppins(fontSize: 12),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                )
+              : null,
+          onTap: () {
+            close(context, chat);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatConversationScreen(chat: chat),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

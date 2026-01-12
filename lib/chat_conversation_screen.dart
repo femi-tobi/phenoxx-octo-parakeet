@@ -5,6 +5,8 @@ import 'models/chat_model.dart';
 import 'models/message_model.dart';
 import 'services/chat_service.dart';
 import 'group_info_screen.dart';
+import 'voice_call_screen.dart';
+import 'video_call_screen.dart';
 
 class ChatConversationScreen extends StatefulWidget {
   final Chat chat;
@@ -168,13 +170,27 @@ class _ChatConversationScreenState extends State<ChatConversationScreen> {
           IconButton(
             icon: Icon(Icons.videocam_outlined, color: textColor),
             onPressed: () {
-              // TODO: Implement video call
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VideoCallScreen(
+                    contactName: widget.chat.displayName,
+                  ),
+                ),
+              );
             },
           ),
           IconButton(
             icon: Icon(Icons.call_outlined, color: textColor),
             onPressed: () {
-              // TODO: Implement voice call
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VoiceCallScreen(
+                    contactName: widget.chat.displayName,
+                  ),
+                ),
+              );
             },
           ),
           IconButton(
