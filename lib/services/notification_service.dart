@@ -75,6 +75,79 @@ class NotificationService {
 
     overlay.insert(overlayEntry);
   }
+
+  /// Show notification for session reminder (1 hour before)
+  static void showSessionReminderOneHour(
+    BuildContext context, {
+    required String sessionTitle,
+    required String expertName,
+    required DateTime sessionTime,
+    VoidCallback? onTap,
+  }) {
+    showNotification(
+      context,
+      title: 'Session Reminder',
+      message: '$sessionTitle with $expertName starts in 1 hour',
+      onTap: onTap,
+    );
+  }
+
+  /// Show notification for session reminder (15 minutes before)
+  static void showSessionReminderFifteenMin(
+    BuildContext context, {
+    required String sessionTitle,
+    required String expertName,
+    VoidCallback? onTap,
+  }) {
+    showNotification(
+      context,
+      title: 'Session Starting Soon!',
+      message: '$sessionTitle with $expertName starts in 15 minutes. Get ready!',
+      onTap: onTap,
+    );
+  }
+
+  /// Show notification when session is starting
+  static void showSessionStarting(
+    BuildContext context, {
+    required String sessionTitle,
+    VoidCallback? onJoin,
+  }) {
+    showNotification(
+      context,
+      title: 'Session Started!',
+      message: '$sessionTitle is now live. Join now!',
+      onTap: onJoin,
+    );
+  }
+
+  /// Schedule session reminder (mock implementation)
+  /// In production, use flutter_local_notifications or firebase_messaging
+  static void scheduleSessionReminder({
+    required String bookingId,
+    required String sessionTitle,
+    required String expertName,
+    required DateTime sessionTime,
+    bool oneHourBefore = true,
+    bool fifteenMinBefore = true,
+  }) {
+    // Mock scheduling - log to console
+    print('📅 Scheduled reminders for booking $bookingId:');
+    if (oneHourBefore) {
+      final oneHourTime = sessionTime.subtract(Duration(hours: 1));
+      print('  - 1 hour reminder at: $oneHourTime');
+    }
+    if (fifteenMinBefore) {
+      final fifteenMinTime = sessionTime.subtract(Duration(minutes: 15));
+      print('  - 15 min reminder at: $fifteenMinTime');
+    }
+    print('  - Session starts at: $sessionTime');
+  }
+
+  /// Cancel scheduled session reminder (mock implementation)
+  static void cancelSessionReminder(String bookingId) {
+    print('🔕 Cancelled reminders for booking $bookingId');
+  }
 }
 
 class _NotificationBanner extends StatefulWidget {

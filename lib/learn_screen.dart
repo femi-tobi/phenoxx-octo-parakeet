@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'live_sessions_screen.dart';
+import 'session_details_screen.dart';
+import 'services/live_session_service.dart';
+import 'models/live_session_model.dart';
 
 class LearnScreen extends StatelessWidget {
   const LearnScreen({super.key});
@@ -257,6 +262,42 @@ class LearnScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 24),
+
+              // Live Expert Sessions
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Get Expert Help',
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: textColor,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LiveSessionsScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'View All',
+                      style: GoogleFonts.poppins(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              const _LiveSessionsSection(),
               const SizedBox(height: 80),
             ],
           ),
