@@ -155,10 +155,15 @@ class EarnScreen extends StatelessWidget {
                   label: 'Add Funds',
                   isDark: isDark,
                 ),
-                _ActionButton(
-                  icon: Icons.history_outlined,
-                  label: 'History',
-                  isDark: isDark,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/data-rewards');
+                  },
+                  child: _ActionButton(
+                    icon: Icons.wifi,
+                    label: 'Data Rewards',
+                    isDark: isDark,
+                  ),
                 ),
               ],
             ),

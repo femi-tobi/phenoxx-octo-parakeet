@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:phenoxx/login_screen.dart';
 import 'package:phenoxx/theme_provider.dart';
+import 'package:phenoxx/study_groups_screen.dart';
+import 'package:phenoxx/ai_group_matcher_screen.dart';
+import 'package:phenoxx/data_rewards_screen.dart';
+import 'package:phenoxx/ai_debugger_screen.dart';
+import 'package:phenoxx/my_portfolio_screen.dart';
+import 'package:phenoxx/micro_tasks_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -44,6 +50,14 @@ class MyApp extends StatelessWidget {
       ),
       home: const LoginScreen(),
       debugShowCheckedModeBanner: false,
+      routes: {
+        '/study-groups': (context) => const StudyGroupsScreen(),
+        '/ai-matcher': (context) => const AIGroupMatcherScreen(),
+        '/data-rewards': (context) => const DataRewardsScreen(),
+        '/ai-debugger': (context) => const AIDebuggerScreen(),
+        '/my-portfolio': (context) => const MyPortfolioScreen(),
+        '/micro-tasks': (context) => const MicroTasksScreen(),
+      },
     );
   }
 }

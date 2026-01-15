@@ -57,8 +57,9 @@ class EncryptionService {
   String generateToken(int length) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     final random = encrypt.SecureRandom(length);
+    final bytes = random.bytes;
     return String.fromCharCodes(
-      List.generate(length, (index) => chars.codeUnitAt(random.nextInt(chars.length))),
+      List.generate(length, (index) => chars.codeUnitAt(bytes[index % bytes.length] % chars.length)),
     );
   }
 
@@ -77,7 +78,8 @@ class EncryptionService {
   /// Generate verification code for 2FA (6-digit)
   String generate2FACode() {
     final random = encrypt.SecureRandom(6);
-    return List.generate(6, (_) => random.nextInt(10)).join();
+    final bytes = random.bytes;
+    return List.generate(6, (i) => bytes[i %bytes.length] % 10).join();
   }
 
   /// Create digital signature for tasks/rewards
