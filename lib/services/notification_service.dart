@@ -58,7 +58,8 @@ class NotificationService {
     VoidCallback? onDecline,
   }) {
     final overlay = Overlay.of(context);
-    final overlayEntry = OverlayEntry(
+    late OverlayEntry overlayEntry;
+    overlayEntry = OverlayEntry(
       builder: (context) => _CallNotificationBanner(
         callerName: callerName,
         isVideo: isVideo,

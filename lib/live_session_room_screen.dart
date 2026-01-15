@@ -49,16 +49,7 @@ class _LiveSessionRoomScreenState extends State<LiveSessionRoomScreen> {
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      const Color(0xFF1E3A8A),
-                      const Color(0xFF3B82F6),
-                    ],
-                  ),
-                ),
+                color: const Color(0xFF1E3A8A),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -103,16 +94,7 @@ class _LiveSessionRoomScreenState extends State<LiveSessionRoomScreen> {
               right: 0,
               child: Container(
                 padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.7),
-                      Colors.transparent,
-                    ],
-                  ),
-                ),
+                color: Colors.black.withOpacity(0.7),
                 child: Row(
                   children: [
                     Container(
@@ -172,16 +154,7 @@ class _LiveSessionRoomScreenState extends State<LiveSessionRoomScreen> {
               right: 0,
               child: Container(
                 padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.8),
-                      Colors.transparent,
-                    ],
-                  ),
-                ),
+                color: Colors.black.withOpacity(0.8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
